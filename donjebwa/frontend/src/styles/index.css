@@ -1,0 +1,102 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #050403;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #080604;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a1c0e;
+  border-radius: 8px;
+}
+
+/* ===== Keyframe Animations ===== */
+@keyframes spin3d {
+  0%   { transform: rotateX(-24deg) rotateY(0deg); }
+  100% { transform: rotateX(-24deg) rotateY(360deg); }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+@keyframes glowpulse {
+  0%, 100% { opacity: .5; transform: translate(-50%,-50%) scale(1); }
+  50%      { opacity: .85; transform: translate(-50%,-50%) scale(1.14); }
+}
+
+@keyframes orbit {
+  to { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+@keyframes orbitrev {
+  to { transform: translate(-50%,-50%) rotate(-360deg); }
+}
+
+@keyframes scrollline {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  45%  { transform: scaleY(1); transform-origin: top; }
+  55%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes dotblink {
+  0%, 100% { opacity: .25; }
+  50%      { opacity: 1; }
+}
+
+@keyframes mapglow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255,140,40,.7)) drop-shadow(0 0 22px rgba(255,80,20,.45)); }
+  50%      { filter: drop-shadow(0 0 14px rgba(255,170,60,.95)) drop-shadow(0 0 40px rgba(255,90,20,.6)); }
+}
+
+@keyframes particle {
+  0%, 100% { opacity: .1; transform: translateY(0); }
+  50%      { opacity: .7; transform: translateY(-14px); }
+}
+
+@keyframes tumble {
+  0%   { transform: rotateX(-22deg) rotateY(-30deg) rotateZ(5deg); }
+  50%  { transform: rotateX(-28deg) rotateY(-14deg) rotateZ(1deg); }
+  100% { transform: rotateX(-22deg) rotateY(-30deg) rotateZ(5deg); }
+}
+
+@keyframes emberdrift {
+  0%   { opacity: 0; transform: translate(0,0) scale(1); }
+  12%  { opacity: .95; }
+  100% { opacity: 0; transform: translate(-180px,-26px) scale(.25); }
+}
+
+@keyframes streakmove {
+  0%   { opacity: 0; transform: translateX(0) scaleX(.5); }
+  28%  { opacity: .8; }
+  100% { opacity: 0; transform: translateX(-110px) scaleX(1.4); }
+}
+
+@keyframes corepulse {
+  0%, 100% { opacity: .7; transform: translate(-50%,-50%) scale(1); }
+  50%      { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
+}
+
+/* ===== App Root ===== */
+.app-root {
+  background: #050403;
+  color: #F4EEE7;
+  font-family: 'Pretendard', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}

@@ -1,0 +1,25 @@
+.sk-map-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 380px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(20,10,6,.9), rgba(8,5,3,.9));
+  border: 1px solid rgba(255,90,31,.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(255,60,12,.12) inset;
+  z-index: 4;
+  background-image:
+    linear-gradient(rgba(255,90,31,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,90,31,.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.sk-map-svg {
+  animation: mapglow 4s ease-in-out infinite;
+}
