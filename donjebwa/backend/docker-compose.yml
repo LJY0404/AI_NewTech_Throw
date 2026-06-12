@@ -1,0 +1,36 @@
+# backend/ 에서 실행: docker compose up --build
+# 같은 이미지로 4개 컨테이너를 띄운다 (메인 + 장소/동선/스토리텔러).
+# api 서비스는 에이전트 URL을 서비스명으로 override 한다.
+services:
+  place_agent:
+    build: .
+    command: uvicorn agents.place_agent.agent:a2a_app --host 0.0.0.0 --port 8001
+    env_file: ./.env
+    ports: ["8001:8001"]
+
+  route_agent:
+    build: .
+    command: uvicorn agents.route_agent.agent:a2a_app --host 0.0.0.0 --port 8002
+    env_file: ./.env
+    ports: ["8002:8002"]
+
+  storyteller_agent:
+    build: .
+    command: uvicorn agents.storyteller_agent.agent:a2a_app --host 0.0.0.0 --port 8003
+    env_file: ./.env
+    ports: ["8003:8003"]
+
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    env_file: ./.env
+    environment:
+      # 컨테이너 간 통신은 서비스명으로 (localhost 아님)
+      - PLACE_AGENT_URL=http://place_agent:8001
+      - ROUTE_AGENT_URL=http://route_agent:8002
+      - STORYTELLER_AGENT_URL=http://storyteller_agent:8003
+    ports: ["8000:8000"]
+    depends_on:
+      - place_agent
+      - route_agent
+      - storyteller_agent

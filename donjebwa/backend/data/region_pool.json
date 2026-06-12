@@ -1,0 +1,22 @@
+[
+  {"name": "성수", "weight": 3.0},
+  {"name": "강릉", "weight": 3.0},
+  {"name": "부산 해운대", "weight": 3.0},
+  {"name": "양평", "weight": 2.0},
+  {"name": "가평", "weight": 2.0},
+  {"name": "속초", "weight": 2.5},
+  {"name": "춘천", "weight": 2.5},
+  {"name": "전주", "weight": 2.5},
+  {"name": "경주", "weight": 2.5},
+  {"name": "여수", "weight": 2.5},
+  {"name": "인천 송도", "weight": 1.5},
+  {"name": "수원 화성", "weight": 1.5},
+  {"name": "파주 헤이리", "weight": 1.2},
+  {"name": "통영", "weight": 1.2},
+  {"name": "단양", "weight": 1.0},
+  {"name": "안동", "weight": 1.0},
+  {"name": "군산", "weight": 1.0},
+  {"name": "평창", "weight": 0.8},
+  {"name": "영월", "weight": 0.6},
+  {"name": "정선", "weight": 0.6}
+]

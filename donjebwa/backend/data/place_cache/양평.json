@@ -1,0 +1,8 @@
+[
+  {"name": "두물머리", "category": "명소", "address": "경기 양평군 양서면", "lat": 37.5497, "lng": 127.3128, "popular": true},
+  {"name": "세미원", "category": "정원", "address": "경기 양평군 양서면", "lat": 37.5470, "lng": 127.3097, "popular": true},
+  {"name": "테라로사 서종", "category": "카페", "address": "경기 양평군 서종면", "lat": 37.6010, "lng": 127.3360, "popular": false},
+  {"name": "양평 물맑은시장", "category": "시장", "address": "경기 양평군 양평읍", "lat": 37.4920, "lng": 127.4877, "popular": false},
+  {"name": "구둔역", "category": "명소", "address": "경기 양평군 지평면", "lat": 37.4015, "lng": 127.6190, "popular": false},
+  {"name": "양평 들꽃수목원", "category": "수목원", "address": "경기 양평군 양평읍", "lat": 37.5045, "lng": 127.4720, "popular": false}
+]

@@ -1,0 +1,32 @@
+[project]
+name = "donjebwa-backend"
+version = "0.1.0"
+description = "던져봐 — A2A 멀티에이전트 여행 코스 추천 백엔드"
+requires-python = ">=3.10"
+dependencies = [
+    # 웹 / API
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic-settings>=2.2",
+    "sse-starlette>=2.1",
+    # DB
+    "sqlalchemy>=2.0",
+    # 스케줄러 (3.x API 사용 — 4.x는 API가 달라 제외)
+    "apscheduler>=3.10,<4",
+    # HTTP 클라이언트 (A2A / 외부 API)
+    "httpx>=0.27",
+    # 에이전트 / A2A
+    "google-adk>=1.0",
+    "a2a-sdk>=0.2",
+    "google-genai>=1.0",
+    # 연동
+    "notion-client>=2.2",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+# 애플리케이션 패키지 목록. agents는 만들고 나서 여기에 추가.
+[tool.setuptools]
+packages = ["app", "core", "orchestrator", "integrations", "scheduler"]

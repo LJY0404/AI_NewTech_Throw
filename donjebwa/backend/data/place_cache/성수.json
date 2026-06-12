@@ -1,0 +1,10 @@
+[
+  {"name": "성수연방", "category": "복합문화공간", "address": "서울 성동구 성수동2가", "lat": 37.5417, "lng": 127.0565, "popular": true},
+  {"name": "대림창고", "category": "카페", "address": "서울 성동구 성수동2가", "lat": 37.5447, "lng": 127.0558, "popular": true},
+  {"name": "어니언 성수", "category": "카페", "address": "서울 성동구 아차산로", "lat": 37.5446, "lng": 127.0586, "popular": true},
+  {"name": "디뮤지엄", "category": "전시", "address": "서울 성동구 왕십리로", "lat": 37.5443, "lng": 127.0445, "popular": true},
+  {"name": "성수동 골목 책방", "category": "서점", "address": "서울 성동구 성수이로", "lat": 37.5430, "lng": 127.0600, "popular": false},
+  {"name": "연무장길 로스터리", "category": "카페", "address": "서울 성동구 연무장길", "lat": 37.5425, "lng": 127.0570, "popular": false},
+  {"name": "작은 갤러리 성수", "category": "전시", "address": "서울 성동구 성수일로", "lat": 37.5438, "lng": 127.0555, "popular": false},
+  {"name": "뚝섬 한강공원 산책로", "category": "공원", "address": "서울 성동구 강변북로", "lat": 37.5300, "lng": 127.0660, "popular": false}
+]
