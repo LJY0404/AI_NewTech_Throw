@@ -1,0 +1,330 @@
+/* ══════════════════════════════════════════════════════════════════════
+   KoreaMapDraw — full-screen cinematic region lottery
+   Base layer = real isometric Korea map (map.avif). Its white background is
+   dropped out with invert + screen blend, leaving a glowing terrain on the
+   dark panel. Province glow zones light up orange + lift, one after another.
+   Brand: bg #050403 · accent #FF5A1F · muted #6f655f
+   ══════════════════════════════════════════════════════════════════════ */
+
+.kmd {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: radial-gradient(120% 90% at 50% 0%, rgba(255, 90, 31, 0.08), transparent 55%),
+    rgba(5, 4, 3, 0.86);
+  backdrop-filter: blur(8px);
+  font-family: 'Pretendard', sans-serif;
+  animation: kmd-overlay-in 0.5s ease both;
+}
+
+@keyframes kmd-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.kmd__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 540px;
+  max-height: 100%;
+  padding: 32px 28px 38px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(255, 90, 31, 0.08),
+    inset 0 0 60px rgba(255, 90, 31, 0.03);
+  overflow: hidden;
+  animation: kmd-panel-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes kmd-panel-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Status line ─────────────────────────────────────────────────────── */
+.kmd__status {
+  min-height: 22px;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.kmd__status-text {
+  color: #c9bfb8;
+  animation: kmd-status-pulse 1.6s ease-in-out infinite;
+}
+
+.kmd__status--narrowing .kmd__status-text {
+  color: #FFB593;
+  animation-duration: 1s;
+}
+
+.kmd__status-text--done {
+  color: #FF5A1F;
+  letter-spacing: 5px;
+  text-shadow: 0 0 22px rgba(255, 90, 31, 0.6);
+  animation: none;
+}
+
+@keyframes kmd-status-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.kmd__ellipsis i { opacity: 0.3; animation: kmd-dot-bounce 1.4s infinite; }
+.kmd__ellipsis i:nth-child(2) { animation-delay: 0.2s; }
+.kmd__ellipsis i:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes kmd-dot-bounce {
+  0%, 60%, 100% { opacity: 0.3; }
+  30% { opacity: 1; }
+}
+
+/* ── Map stage ───────────────────────────────────────────────────────── */
+.kmd__map-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1;
+  /* solid dark backdrop so the screen-blend has a known surface to drop the
+     image's white background against */
+  background: radial-gradient(70% 60% at 50% 42%, rgba(255, 90, 31, 0.05), transparent 70%);
+}
+
+.kmd__map-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* invert → white bg becomes black, terrain becomes light; brightness lifts
+     the landmass into view; screen blend turns the black bg transparent so
+     only the glowing Korea silhouette remains on the dark panel */
+  filter: invert(1) brightness(2.3) contrast(1.05)
+    drop-shadow(0 0 16px rgba(255, 120, 60, 0.18));
+  mix-blend-mode: screen;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+.kmd__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Province glow zones ─────────────────────────────────────────────── */
+.kmd-prov {
+  fill: url(#kmd-glow);
+  stroke: none; /* 폴리곤 외곽선 제거 → 마스크가 만든 실제 해안선만 보인다 */
+  opacity: 0; /* resting: invisible → pristine map shows through */
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: opacity, transform, filter;
+}
+
+/* Phase 1 — fast: zones flare up & lift, one after another */
+.kmd-prov--scanning {
+  animation: kmd-flare 1.15s var(--rise-delay) infinite;
+}
+
+/* Phase 2 — slower, sparser flare (fewer lit at a time) */
+.kmd-prov--narrowing {
+  animation: kmd-flare-slow 2.4s var(--rise-delay) infinite;
+}
+
+/* the flare = orange flood on the land + glow, then settle (지도에 밀착, 들뜸 없음) */
+@keyframes kmd-flare {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(2px);
+  }
+  14% {
+    opacity: 0.9;
+    transform: scale(1.015);
+    filter: blur(2px) drop-shadow(0 0 22px rgba(255, 90, 31, 0.8));
+  }
+  32% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(2px);
+  }
+}
+
+@keyframes kmd-flare-slow {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(2px);
+  }
+  8% {
+    opacity: 0.95;
+    transform: scale(1.02);
+    filter: blur(2px) drop-shadow(0 0 28px rgba(255, 90, 31, 0.9));
+  }
+  20% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(2px);
+  }
+}
+
+/* Phase 3/4 — losers go dark; only the winner stays lit */
+.kmd-prov--dimmed {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.kmd-prov--winner {
+  opacity: 0.96;
+  transform: scale(1.012);
+  animation: kmd-winner-breathe 1.6s ease-in-out infinite;
+}
+
+@keyframes kmd-winner-breathe {
+  0%, 100% {
+    filter: blur(1.5px) drop-shadow(0 0 22px rgba(255, 90, 31, 0.65));
+  }
+  50% {
+    filter: blur(1.5px) drop-shadow(0 0 40px rgba(255, 90, 31, 0.95));
+  }
+}
+
+/* Winning city name, stamped on the lifted province */
+.kmd__winner-label {
+  fill: #fff;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  paint-order: stroke;
+  stroke: rgba(150, 40, 8, 0.7);
+  stroke-width: 4px;
+  animation: kmd-label-in 0.5s ease both;
+}
+
+@keyframes kmd-label-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Radar shockwave around the winner ───────────────────────────────── */
+.kmd__ping {
+  fill: none;
+  stroke: #FF5A1F;
+  stroke-width: 2.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kmd-ping 1.8s cubic-bezier(0, 0.4, 0.4, 1) infinite;
+}
+.kmd__ping--delayed { animation-delay: 0.9s; }
+
+@keyframes kmd-ping {
+  0% { r: 10; opacity: 0.9; stroke-width: 3; }
+  100% { r: 80; opacity: 0; stroke-width: 0.6; }
+}
+
+/* ── Connector line down to the result ───────────────────────────────── */
+.kmd__connector {
+  stroke: rgba(255, 90, 31, 0.7);
+  stroke-width: 2;
+  stroke-dasharray: 8 8;
+  stroke-dashoffset: 360;
+  animation: kmd-draw 0.7s ease-out 0.15s forwards,
+    kmd-dash-flow 1.2s linear 0.85s infinite;
+}
+
+@keyframes kmd-draw {
+  from { stroke-dashoffset: 360; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes kmd-dash-flow {
+  to { stroke-dashoffset: -32; }
+}
+
+/* ── Result reveal ───────────────────────────────────────────────────── */
+.kmd__result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kmd__result--in {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.kmd__result-region {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #FF783C, #FF4614);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(255, 90, 31, 0.35);
+}
+
+.kmd__result-sub {
+  margin: 10px 0 22px;
+  font-size: 16px;
+  color: #9b9089;
+}
+
+.kmd__confirm {
+  background: linear-gradient(135deg, #FF783C, #FF4614);
+  color: #fff;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  padding: 15px 56px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(255, 90, 31, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kmd__confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255, 90, 31, 0.65);
+}
+
+.kmd__confirm:active { transform: translateY(0) scale(0.98); }
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .kmd__panel { padding: 26px 16px 30px; border-radius: 22px; }
+  .kmd__result-region { font-size: 30px; }
+  .kmd__winner-label { font-size: 22px; }
+}
+
+/* ── Reduced motion: collapse to a calm fade ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .kmd, .kmd__panel, .kmd-prov, .kmd__ping,
+  .kmd__connector, .kmd__status-text {
+    animation: none !important;
+  }
+  .kmd-prov--winner { opacity: 0.95; transform: scale(1.012); }
+}

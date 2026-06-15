@@ -1,0 +1,320 @@
+.dls {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: 'Pretendard', sans-serif;
+  /* Per-level accent colors, escalating from calm amber to neon orange */
+  --dls-lv1: #C9A877;
+  --dls-lv2: #FFB066;
+  --dls-lv3: #FF8A3C;
+  --dls-lv4: #FF5A1F;
+}
+
+/* ── Header ───────────────────────────── */
+.dls__head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dls__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #9b9089;
+  margin-bottom: 14px;
+}
+
+.dls__title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #F7F2EC;
+  letter-spacing: -0.6px;
+  margin: 0 0 10px;
+}
+
+.dls__title-accent {
+  background: linear-gradient(135deg, #FF8A3C, #FF5A1F);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dls__subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #9b9089;
+  margin: 0;
+}
+
+/* ── Vertical timeline track ──────────── */
+.dls__track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 8px;
+}
+
+/* The vertical spine running through the timeline nodes */
+.dls__track::before {
+  content: '';
+  position: absolute;
+  left: 25px;
+  top: 28px;
+  bottom: 28px;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(201, 168, 119, 0.25),
+    rgba(255, 90, 31, 0.35)
+  );
+  z-index: 0;
+}
+
+/* ── Cards ────────────────────────────── */
+.dls-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 22px 24px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.3s ease, border-color 0.3s ease,
+    background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dls-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dls-card:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ── Timeline node ────────────────────── */
+.dls-card__node {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 9, 8, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s ease;
+}
+
+.dls-card__node-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #6b625b;
+  transition: all 0.3s ease;
+}
+
+/* ── Body ─────────────────────────────── */
+.dls-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.dls-card__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.dls-card__level {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #6b625b;
+  transition: color 0.3s ease;
+}
+
+.dls-card__title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #9b9089;
+  letter-spacing: -0.3px;
+  transition: color 0.3s ease;
+}
+
+.dls-card__indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 22px;
+  opacity: 0;
+  transform: scale(0.6);
+  overflow: hidden;
+  color: var(--accent);
+  transition: all 0.3s ease;
+}
+
+.dls-card__desc {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #7a716a;
+  transition: color 0.3s ease;
+}
+
+/* ── Range gauge (candidate scope) ────── */
+.dls-card__range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.dls-card__range-track {
+  position: relative;
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.dls-card__range-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: #6b625b;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+}
+
+.dls-card__range-tag {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #6b625b;
+  transition: color 0.3s ease;
+}
+
+/* ── Per-level accent assignment ──────── */
+.dls-card--lv1 { --accent: var(--dls-lv1); }
+.dls-card--lv2 { --accent: var(--dls-lv2); }
+.dls-card--lv3 { --accent: var(--dls-lv3); }
+.dls-card--lv4 { --accent: var(--dls-lv4); }
+
+/* ── Active state (visual escalation) ─── */
+.dls-card--active {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, transparent),
+    transparent 70%
+  );
+  border-color: var(--accent);
+}
+
+.dls-card--active .dls-card__title {
+  color: #F7F2EC;
+}
+
+.dls-card--active .dls-card__level {
+  color: var(--accent);
+}
+
+.dls-card--active .dls-card__desc {
+  color: #c9bfb8;
+}
+
+.dls-card--active .dls-card__node {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.dls-card--active .dls-card__node-dot {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.dls-card--active .dls-card__indicator {
+  width: 22px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dls-card--active .dls-card__range-fill {
+  background: var(--accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.dls-card--active .dls-card__range-tag {
+  color: var(--accent);
+}
+
+/* Escalating glow intensity per level when active */
+.dls-card--lv1.dls-card--active {
+  box-shadow: 0 0 18px color-mix(in srgb, var(--dls-lv1) 18%, transparent);
+}
+
+.dls-card--lv2.dls-card--active {
+  box-shadow: 0 0 24px color-mix(in srgb, var(--dls-lv2) 28%, transparent);
+}
+
+.dls-card--lv3.dls-card--active {
+  box-shadow: 0 0 32px color-mix(in srgb, var(--dls-lv3) 38%, transparent);
+}
+
+/* Level 4: the ultimate hardcore experience — intense pulsing neon */
+.dls-card--lv4.dls-card--active {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 90, 31, 0.18),
+    rgba(255, 90, 31, 0.02) 70%
+  );
+  animation: dlsPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dlsPulse {
+  0%, 100% {
+    box-shadow: 0 0 26px rgba(255, 90, 31, 0.35),
+      0 0 60px rgba(255, 90, 31, 0.12);
+    border-color: #FF5A1F;
+  }
+  50% {
+    box-shadow: 0 0 44px rgba(255, 90, 31, 0.65),
+      0 0 90px rgba(255, 90, 31, 0.28);
+    border-color: #FF7A45;
+  }
+}
+
+/* ── Reduced motion ───────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .dls-card,
+  .dls-card__node,
+  .dls-card__node-dot,
+  .dls-card__title,
+  .dls-card__indicator,
+  .dls-card__range-fill {
+    transition: none;
+  }
+  .dls-card--lv4.dls-card--active {
+    animation: none;
+  }
+}
+
+/* ── Responsive ───────────────────────── */
+@media (max-width: 520px) {
+  .dls__title { font-size: 24px; }
+  .dls-card { padding: 18px 16px; gap: 14px; }
+  .dls-card__title { font-size: 17px; }
+}

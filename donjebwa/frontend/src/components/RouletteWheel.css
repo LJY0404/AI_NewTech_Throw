@@ -12,7 +12,7 @@
   width: 560px;
   height: 560px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,90,31,.06), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 90, 31, .06), transparent 70%);
   transform: translate(-50%, -50%);
 }
 
@@ -22,7 +22,7 @@
   top: 50%;
   width: 560px;
   height: 560px;
-  border: 1px dashed rgba(255,90,31,.28);
+  border: 1px dashed rgba(255, 90, 31, .28);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: orbit 60s linear infinite;
@@ -34,7 +34,7 @@
   top: 50%;
   width: 470px;
   height: 470px;
-  border: 1px solid rgba(255,90,31,.12);
+  border: 1px solid rgba(255, 90, 31, .12);
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
@@ -57,7 +57,7 @@
   height: 100%;
   background: linear-gradient(180deg, #FFC65A, #FF5A1F);
   border-radius: 3px;
-  box-shadow: 0 0 12px rgba(255,140,40,.8);
+  box-shadow: 0 0 12px rgba(255, 140, 40, .8);
 }
 
 .roulette__needle-dot {
@@ -69,7 +69,7 @@
   height: 12px;
   border-radius: 50%;
   background: #FFD24A;
-  box-shadow: 0 0 16px 4px rgba(255,160,50,.95);
+  box-shadow: 0 0 16px 4px rgba(255, 160, 50, .95);
 }
 
 .roulette__center-dot {
@@ -81,7 +81,7 @@
   height: 14px;
   border-radius: 50%;
   background: #FF5A1F;
-  box-shadow: 0 0 18px rgba(255,90,31,.9);
+  box-shadow: 0 0 18px rgba(255, 90, 31, .9);
   z-index: 7;
 }
 
@@ -107,7 +107,7 @@
   width: 15px;
   height: 15px;
   background: #FFD24A;
-  box-shadow: 0 0 20px 5px rgba(255,160,50,.95);
+  box-shadow: 0 0 20px 5px rgba(255, 160, 50, .95);
   z-index: 9;
 }
 
@@ -125,5 +125,5 @@
   font-size: 15px;
   color: #FFCFA3;
   font-weight: 700;
-  text-shadow: 0 0 14px rgba(255,140,50,.9);
+  text-shadow: 0 0 14px rgba(255, 140, 50, .9);
 }

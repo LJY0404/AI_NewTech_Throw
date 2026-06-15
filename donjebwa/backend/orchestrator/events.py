@@ -42,10 +42,14 @@ async def emit(
     stage: EventStage,
     actor: str,
     message: str,
+    reasoning: Optional[str] = None,
     payload: Optional[dict[str, Any]] = None,
 ) -> None:
     """오케스트레이터가 쓰는 단축 함수. 로그도 같이 남긴다."""
     logger.info("[%s] %s — %s", stage.value, actor, message)
     await event_bus.publish(
-        AgentEvent(stage=stage, actor=actor, message=message, payload=payload)
+        AgentEvent(
+            stage=stage, actor=actor, message=message,
+            reasoning=reasoning, payload=payload,
+        )
     )

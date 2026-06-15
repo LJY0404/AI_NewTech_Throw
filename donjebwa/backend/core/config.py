@@ -24,8 +24,8 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
     # ── 스케줄러 (시나리오 1) ─────────────────────────────────
-    SCHEDULER_ENABLED: bool = True    # 초기 개발 중 끄고 싶으면 .env에서 False
-    SCHEDULER_DEMO_SECONDS: int = 60  # DEMO_MODE일 때 자동 큐레이션 발사 간격(초)
+    SCHEDULER_ENABLED: bool = False   # 기본 꺼둠(토큰 절약). 데모 땐 POST /api/curate로 1회 수동 실행
+    SCHEDULER_DEMO_SECONDS: int = 60  # SCHEDULER_ENABLED=true일 때 자동 큐레이션 발사 간격(초)
 
     # ── DB ────────────────────────────────────────────────────
     DATABASE_URL: str = f"sqlite:///{BASE_DIR / 'donjebwa.db'}"

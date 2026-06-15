@@ -24,10 +24,9 @@ async def stream(request: Request) -> EventSourceResponse:
         async for event in event_bus.subscribe():
             if await request.is_disconnected():
                 break
-            yield {
-                "event": event.stage.value,        # 프론트가 stage별로 분기 가능
-                "data": event.model_dump_json(),   # AgentEvent JSON
-            }
+            # event 이름표를 붙이지 않는다 → 프론트가 onmessage 하나로 전부 수신.
+            # stage는 data(JSON) 안에 들어있다.
+            yield {"data": event.model_dump_json()}
 
     # ping: 15초마다 keep-alive (프록시가 유휴 연결 끊는 것 방지)
     return EventSourceResponse(event_generator(), ping=15)

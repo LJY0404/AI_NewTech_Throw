@@ -1,0 +1,292 @@
+.destiny-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 4, 3, 0.7);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards ease-out;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.destiny-modal {
+  width: 90%;
+  max-width: 500px;
+  background: linear-gradient(180deg, rgba(20, 18, 16, 0.95), rgba(10, 9, 8, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 90, 31, 0.1) inset;
+  transform: translateY(20px);
+  animation: slideUp 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}
+
+.destiny-modal__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  color: #9b9089;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.destiny-modal__close:hover {
+  color: #fff;
+}
+
+.destiny-modal__title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #F7F2EC;
+  margin-top: 0;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.destiny-modal__subtitle {
+  font-size: 15px;
+  color: #9b9089;
+  margin-bottom: 32px;
+}
+
+.destiny-modal__group {
+  margin-bottom: 28px;
+}
+
+.destiny-modal__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #c9bfb8;
+  margin-bottom: 12px;
+}
+
+.destiny-modal__companions {
+  display: flex;
+  gap: 12px;
+}
+
+.destiny-modal__companion-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px 8px;
+  color: #9b9089;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.destiny-modal__companion-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e0d8d3;
+}
+
+.destiny-modal__companion-btn.active {
+  border-color: #FF5A1F;
+  background: linear-gradient(135deg, rgba(255, 90, 31, 0.1), transparent);
+  color: #FF5A1F;
+  box-shadow: 0 0 16px rgba(255, 90, 31, 0.2);
+}
+
+.destiny-modal__companion-icon {
+  font-size: 24px;
+}
+
+.destiny-modal__hint {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6f655f;
+  margin-left: 6px;
+}
+
+/* --- Combobox (region search) --- */
+.destiny-modal__combobox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 0 14px;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.destiny-modal__combobox:focus-within {
+  border-color: #FF5A1F;
+  background: rgba(255, 90, 31, 0.06);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.15);
+}
+
+.destiny-modal__combobox.has-value {
+  border-color: rgba(255, 90, 31, 0.5);
+}
+
+.destiny-modal__combobox-icon {
+  font-size: 15px;
+  opacity: 0.6;
+}
+
+.destiny-modal__combobox-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #F7F2EC;
+  font-size: 16px;
+  padding: 14px 0;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.destiny-modal__combobox-input:focus {
+  outline: none;
+}
+
+.destiny-modal__combobox-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.destiny-modal__combobox-clear {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #c9bfb8;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.destiny-modal__combobox-clear:hover {
+  background: rgba(255, 90, 31, 0.25);
+  color: #fff;
+}
+
+/* --- Chips (quick-select) --- */
+.destiny-modal__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.destiny-modal__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: #c9bfb8;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Pretendard', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.destiny-modal__chip:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #f0e9e3;
+  transform: translateY(-1px);
+}
+
+.destiny-modal__chip.active {
+  border-color: #FF5A1F;
+  background: linear-gradient(135deg, rgba(255, 90, 31, 0.18), rgba(255, 90, 31, 0.06));
+  color: #FFB593;
+  box-shadow: 0 0 14px rgba(255, 90, 31, 0.2);
+}
+
+.destiny-modal__chip-icon {
+  font-size: 15px;
+}
+
+.destiny-modal__chip-check {
+  font-size: 11px;
+  font-weight: 800;
+  color: #FF5A1F;
+  margin-left: 2px;
+}
+
+/* --- Inline free-text fallback --- */
+.destiny-modal__inline-input {
+  width: 100%;
+  margin-top: 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  color: #F7F2EC;
+  font-size: 14px;
+  padding: 8px 2px;
+  font-family: 'Pretendard', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.destiny-modal__inline-input:focus {
+  outline: none;
+  border-bottom-color: #FF5A1F;
+}
+
+.destiny-modal__inline-input::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.destiny-modal__submit {
+  width: 100%;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #FF783C, #FF4614);
+  color: #FFF;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 18px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 90, 31, 0.4);
+  transition: all 0.3s ease;
+}
+
+.destiny-modal__submit:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.destiny-modal__submit:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(255, 90, 31, 0.6);
+}
