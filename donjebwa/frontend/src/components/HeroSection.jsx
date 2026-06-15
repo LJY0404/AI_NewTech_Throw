@@ -1,7 +1,12 @@
 import GlowingDie from './GlowingDie';
 import './HeroSection.css';
 
-export default function HeroSection({ thrown, onScrollSpin }) {
+export default function HeroSection({ thrown }) {
+  const handleStart = () => {
+    const el = document.getElementById('mode-selection');
+    if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+  };
+
   return (
     <section className="hero">
       {/* Reference-style Background Particles */}
@@ -28,11 +33,11 @@ export default function HeroSection({ thrown, onScrollSpin }) {
 
       <GlowingDie />
 
-      <button className="hero__cta" onClick={onScrollSpin}>
+      <button className="hero__cta" onClick={handleStart}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF8A4C">
           <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" />
         </svg>
-        운명 던지기
+        시작하기
       </button>
 
       <div className="hero__social-proof">

@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from core.config import settings
 from core.db import init_db
-from app.api import routes_throw, routes_stream, routes_history
+from app.api import routes_throw, routes_stream, routes_history, routes_curate
 from scheduler.jobs import start_scheduler, shutdown_scheduler
 
 logger = logging.getLogger("donjebwa")
@@ -55,6 +55,7 @@ app.add_middleware(
 app.include_router(routes_throw.router, prefix="/api", tags=["throw"])
 app.include_router(routes_stream.router, prefix="/api", tags=["stream"])
 app.include_router(routes_history.router, prefix="/api", tags=["history"])
+app.include_router(routes_curate.router, prefix="/api", tags=["curate"])
 
 
 @app.get("/health")

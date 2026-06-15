@@ -27,6 +27,7 @@ class AgentEvent(BaseModel):
     """SSE로 프론트 패널에 흘릴 단계별 이벤트 한 건."""
     stage: EventStage
     actor: str                                  # "orchestrator" / "place_agent" / "route_agent" ...
-    message: str                                # 사람이 읽는 한 줄 (예: "성수 조용한 후보 전부 혼잡 → 반려")
+    message: str                                # 사람이 읽는 한 줄 요약 (헤드라인)
+    reasoning: Optional[str] = None             # 판단 근거 2~4문장 (프론트 패널이 본문으로 표시)
     payload: Optional[dict[str, Any]] = None    # 디버그용 원본 (A2A Task 등, 선택)
     ts: datetime = Field(default_factory=datetime.now)

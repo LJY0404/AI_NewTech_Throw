@@ -25,7 +25,7 @@ function generateStreaks(count = 7) {
     return { top, left, w, dur, delay };
   });
 }
-ㄴ
+
 const FACES = [
   { char: '서울', className: 'die-face die-face--front' },
   { char: '인천', className: 'die-face die-face--back' },
